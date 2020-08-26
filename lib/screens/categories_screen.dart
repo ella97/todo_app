@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/category.dart';
+import 'package:todo_app/services/category_service.dart';
 import 'home_screen.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -7,6 +9,11 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  var _categoryName = TextEditingController();
+  var _categoryDescription = TextEditingController();
+
+  var _category = Category();
+  var _categoryService = CategoryService();
   _showFormInDialog(BuildContext context){
     return showDialog(context: context, barrierDismissible: true, builder: (param){
       return AlertDialog(
@@ -19,7 +26,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           ),
           FlatButton(
             onPressed: (){
-
+             _category.name = _categoryName.text;
+             _category.description = _categoryDescription.text;
+             _categoryService.saveCategory(_category);
             },
             child: Text('Save'),
           ),
@@ -28,12 +37,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: _categoryName,
               decoration: InputDecoration(
                 labelText: 'Category name',
                 hintText: 'Write category name'
               ),
             ),
             TextField(
+              controller: _categoryDescription,
               decoration: InputDecoration(
                   labelText: 'Category description',
                   hintText: 'Write category description'
