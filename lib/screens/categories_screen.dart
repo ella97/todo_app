@@ -14,6 +14,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   var _category = Category();
   var _categoryService = CategoryService();
+
+  @override
+  void initState(){
+    super.initState();
+    getAllCategories();
+  }
+
+  getAllCategories()async{
+    var categories = await _categoryService.getCategories();
+    categories.forEach((category){
+      print(category['name']);
+    });
+  }
   _showFormInDialog(BuildContext context){
     return showDialog(context: context, barrierDismissible: true, builder: (param){
       return AlertDialog(

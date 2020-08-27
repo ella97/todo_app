@@ -20,4 +20,8 @@ class Repository{
 
 
   }
+  getAll(table) async{
+    var conn = await database;
+    return await conn.query(table);
+  }
 }

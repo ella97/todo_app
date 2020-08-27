@@ -11,4 +11,8 @@ class CategoryService {
     return await _repository.save('categories', category.categoryMap());
 
   }
+
+  getCategories()async{
+    _repository.getAll('categories');
+  }
 }
